@@ -1,0 +1,45 @@
+Handling Cookies in JavaServer Pages
+
+
+
+Explanation
+Cookies and session go hand in hand, the only difference the cookies have is that they are stored in the browser which is another method to handle a session.
+Let us see some examples on handling Cookies in JavaServer Pages:
+Example 1 :
+<html>
+<body>
+<form method = "post" action="cookie2.jsp">
+<font>Username<input type = "text" name = "name"></font>
+</font><br>
+<input type = "submit" name = "submit" value = "submit" >
+</form>
+</body>
+</html>
+Example 2 :
+<%@ page language="java" import="java.util.*"%>
+<%
+String name=request.getParameter("name");
+Cookie cookie = new Cookie ("name",name);
+response.addCookie(cookie);
+cookie.setMaxAge(50 * 50); //Time is in Minutes
+%>
+<a href="cookie3.jsp">Continue</a>
+Example 3 :
+<p>Display the value of the Cookie</p>
+<%
+Cookie[] cookies = request.getCookies();
+for (int i=0; i<cookies.length; i++)
+{
+if(cookies[i].getName().equals("name"))
+out.println("Hello"+cookies[i].getValue());
+}
+%>
+In the first example "cookie1.jsp" we get the username using a form. When the form is submitted it goes to the second page "cookie2.jsp", where the cookie is set an age using the "cookie.setMaxAge" function. In the third page "cookie3.jsp" the cookie is got using the function "request.getCookies()" and using a loop the value of the "username" field is displayed.
+Removing Cookies:
+Example:Cookie4.jsp
+<%
+Cookie cookie = new Cookie( "name", "" );
+cookie.setMaxAge( 0 );
+%>
+In the above example we have created a new instance of cookie with a "null" value and the age of the cookie is set to "0". This will remove or kill the cookie.
+PreviousNext
